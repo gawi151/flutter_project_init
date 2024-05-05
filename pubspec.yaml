@@ -1,0 +1,20 @@
+name: flutter_project_init
+description: A starter project script that will generate a new Flutter project with some pre-configured settings.
+
+version: 0.1.0
+
+executables:
+  flutter_project_init:
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  code_builder: ^4.10.0
+  pub_semver: ^2.1.4
+  pubspec_parse: ^1.2.3
+  yaml: ^3.1.2
+  yaml_edit: ^2.2.1
+dev_dependencies:
+  very_good_analysis: ^5.1.0
+  
