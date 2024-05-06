@@ -1,7 +1,7 @@
 name: flutter_project_init
 description: A starter project script that will generate a new Flutter project with some pre-configured settings.
 
-version: 0.1.0
+version: 0.2.0
 
 executables:
   flutter_project_init:
