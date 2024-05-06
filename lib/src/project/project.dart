@@ -5,6 +5,8 @@ import 'dart:io';
 import '../commands/commands.dart' as cmd;
 import '../utils.dart';
 
+export 'setup_project_structure.dart';
+
 late String _projectDirectoryPath;
 
 /// The path to the project directory.
