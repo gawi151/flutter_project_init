@@ -67,10 +67,6 @@ void setupPackages(String workingDirPath) {
     _setupVeryGoodAnalysis(workingDirPath);
   }
 
-  if (containsPackage('go_router')) {
-    _setupGoRouter(workingDirPath);
-  }
-
   if (containsPackage('flutter_localizations')) {
     _setupLocalizations(workingDirPath);
   }
@@ -88,39 +84,44 @@ include: package:very_good_analysis/analysis_options.yaml
 
 linter:
   rules:
+    always_use_package_imports: false
+    avoid_relative_lib_imports: false
+    prefer_relative_imports: true
     public_member_api_docs: false
   ''');
 }
 
-void _setupGoRouter(String workingDirPath) {
-  final appRouterPath = '$workingDirPath/lib/app/app_router.dart';
-  final appRouterFile = File(appRouterPath);
-  if (!appRouterFile.existsSync()) {
-    stdout.writeln('Setting up go_router...');
-    appRouterFile.createSync(recursive: true);
 
-    final appRouterDart = Library(
-      (b) => b.body.addAll([
-        Directive.import('package:go_router/go_router.dart'),
-        Field(
-          (b) => b
-            ..name = 'appRouter'
-            ..modifier = FieldModifier.final$
-            ..assignment = const Code('GoRouter(routes: [])'),
-        ),
-      ]),
-    );
-    final dartEmitter = DartEmitter(
-      orderDirectives: true,
-      useNullSafetySyntax: true,
-    );
-    appRouterFile.writeAsStringSync('${appRouterDart.accept(dartEmitter)}');
+// done in lib/src/project/setup_project_structure.dart
+//
+// void _setupGoRouter(String workingDirPath) {
+//   final appRouterPath = '$workingDirPath/lib/app/app_router.dart';
+//   final appRouterFile = File(appRouterPath);
+//   if (!appRouterFile.existsSync()) {
+//     stdout.writeln('Setting up go_router...');
+//     appRouterFile.createSync(recursive: true);
 
-    // TODO(gawi151): update MainApp to use appRouter
-  } else {
-    // we don't want to overwrite the file if it already exists
-  }
-}
+//     final appRouterDart = Library(
+//       (b) => b.body.addAll([
+//         Directive.import('package:go_router/go_router.dart'),
+//         Field(
+//           (b) => b
+//             ..name = 'appRouter'
+//             ..modifier = FieldModifier.final$
+//             ..assignment = const Code('GoRouter(routes: [])'),
+//         ),
+//       ]),
+//     );
+//     final dartEmitter = DartEmitter(
+//       orderDirectives: true,
+//       useNullSafetySyntax: true,
+//     );
+//     appRouterFile.writeAsStringSync('${appRouterDart.accept(dartEmitter)}');
+
+//   } else {
+//     // we don't want to overwrite the file if it already exists
+//   }
+// }
 
 void _setupLocalizations(String projectDirPath) {
   stdout.writeln('Setting up localizations...');
@@ -149,7 +150,7 @@ output-localization-file: app_localizations.dart
 
   // create lib/l10n/app_localizations.dart
   // with extension for easy access to l10n
-  final localizationsPath = '$projectDirPath/lib/l10n/app_localizations.dart';
+  final localizationsPath = '$projectDirPath/lib/l10n/l10n.dart';
   final localizationsFile = File(localizationsPath);
   if (!localizationsFile.existsSync()) {
     localizationsFile.createSync(recursive: true);
@@ -188,8 +189,6 @@ output-localization-file: app_localizations.dart
     );
     localizationsFile
         .writeAsStringSync('${localizationsDart.accept(dartEmitter)}');
-
-    // TODO(gawi151): update MainApp to use localizations
   }
 
   // create lib/l10n directory

@@ -11,6 +11,7 @@ void main(List<String> args) {
   initProjectTemplate(args);
   setupPackages(projectDirectoryPath);
   cmd.pubGet(workingDirectory: projectDirectoryPath);
+  setupProjectStructure(workingDirectory: projectDirectoryPath);
   cmd.dartFixApply(workingDirectory: projectDirectoryPath);
   cmd.dartFormat(workingDirectory: projectDirectoryPath);
 }
