@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import '../utils.dart';
+
 /// Runs `flutter create` command to create a new Flutter project.
 ///
 /// The [args] is a list of arguments to pass to the `flutter create` command.
@@ -63,10 +65,10 @@ void _runInShell(
     runInShell: runInShell,
     workingDirectory: workingDirectory,
   );
-  stdout.write(processResult.stdout);
-  stderr.write(processResult.stderr);
+  printMessage(processResult.stdout);
+  printError(processResult.stderr);
   if (processResult.exitCode != 0) {
-    stderr.writeln('Failed to run $executable');
+    printError('Failed to run $executable');
     exit(processResult.exitCode);
   }
 }

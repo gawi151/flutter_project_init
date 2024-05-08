@@ -3,6 +3,7 @@ import 'dart:io';
 import '../commands/commands.dart' as cmd;
 import '../project/project_pubspec.dart';
 import '../templates/templates.dart';
+import '../utils.dart';
 
 /// List of base packages that any project should have.
 const basePackages = [
@@ -35,7 +36,7 @@ const baseFlutterPackages = [
 ///
 /// The [workingDirPath] is the path to the project directory.
 void setupPackages(String workingDirPath) {
-  stdout.writeln('Setting up packages...');
+  printMessage('Setting up packages');
   _addPackages(
     workingDirPath,
     packages: basePackages,
@@ -66,19 +67,19 @@ void _addPackages(
   required List<String> packages,
   required List<String> flutterPackages,
 }) {
-  stdout.writeln('Adding base packages');
+  printMessage('Adding base packages');
   cmd.pubAdd(packages, workingDirectory: workingDirPath);
   cmd.pubAdd(flutterPackages, workingDirectory: workingDirPath, sdk: 'flutter');
 }
 
 void _setupVeryGoodAnalysis(String workingDirPath) {
-  stdout.writeln('Setting up analysis_options...');
+  printMessage('Setting up analysis_options...');
   final analysisOptionsPath = '$workingDirPath/analysis_options.yaml';
   File(analysisOptionsPath).writeAsStringSync(createAnalysisOptions());
 }
 
 void _setupLocalizations(String projectDirPath) {
-  stdout.writeln('Setting up localizations...');
+  printMessage('Setting up localizations...');
 
   // enable `generate: true` in pubspec.yaml
   savePubspecToFile(
@@ -121,7 +122,7 @@ void _setupLocalizations(String projectDirPath) {
 }
 
 void _showFileExistsMessage(File file) {
-  return stdout.writeln(
+  return printMessage(
     '${file.uri.pathSegments.last} already exists, '
     'skip generation to not override existing file.',
   );

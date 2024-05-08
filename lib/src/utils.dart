@@ -1,3 +1,5 @@
+import 'dart:io';
+
 /// check if running in debug mode
 bool isDebug() {
   var isDebug = false;
@@ -19,4 +21,14 @@ void debugPrint(String message) {
     // ignore: avoid_print
     print(message);
   }
+}
+
+/// prints message to standard output
+void printMessage(Object? message) {
+  stdout.writeln(message);
+}
+
+/// prints message to standard error output
+void printError(Object? message) {
+  stderr.writeln(message);
 }

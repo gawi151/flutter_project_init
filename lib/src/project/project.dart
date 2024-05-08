@@ -25,12 +25,12 @@ void initProjectTemplate(List<String> args) {
 
 void _setupWorkingDir(List<String> args) {
   if (args.isEmpty || args[0].isEmpty) {
-    stderr.writeln('Please provide a project directory');
+    printError('Please provide a project directory');
     exit(-1);
   }
   final projectDir = Directory(args[0]);
   if (!projectDir.existsSync()) {
-    stderr.writeln('Project directory does not exist');
+    printError('Project directory does not exist');
     exit(-1);
   }
   _projectDirectoryPath = projectDir.absolute.path;
@@ -38,7 +38,7 @@ void _setupWorkingDir(List<String> args) {
 }
 
 void _cleanupTemplatePackages() {
-  stdout.writeln('Removing not needed packages from app template...');
+  printMessage('Removing not needed packages from app template...');
   final packagesToRemove = ['flutter_lints'];
   cmd.pubRemove(packagesToRemove, workingDirectory: _projectDirectoryPath);
 }
