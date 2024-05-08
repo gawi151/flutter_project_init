@@ -10,7 +10,6 @@ void main(List<String> args) {
   cmd.createFlutterProject(args);
   initProjectTemplate(args);
   setupPackages(projectDirectoryPath);
-  cmd.pubGet(workingDirectory: projectDirectoryPath);
   setupProjectStructure(workingDirectory: projectDirectoryPath);
   cmd.dartFixApply(workingDirectory: projectDirectoryPath);
   cmd.dartFormat(workingDirectory: projectDirectoryPath);
