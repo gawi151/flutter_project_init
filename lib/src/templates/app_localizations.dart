@@ -2,7 +2,7 @@ import 'package:code_builder/code_builder.dart';
 
 /// Creates app_localizations.dart contents with ready to use extension
 /// for the application.
-String createAppLocalizations() {
+String createL10nDart() {
   final dartEmitter = DartEmitter(
     orderDirectives: true,
     useNullSafetySyntax: true,

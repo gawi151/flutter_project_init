@@ -95,21 +95,21 @@ void _setupLocalizations(String projectDirPath) {
     _showFileExistsMessage(l10nYamlFile);
   }
 
-  // create lib/l10n/app_localizations.dart
-  // with extension for easy access to l10n
-  final localizationsPath = '$projectDirPath/lib/l10n/l10n.dart';
-  final localizationsFile = File(localizationsPath);
-  if (!localizationsFile.existsSync()) {
-    localizationsFile.writeAsStringSync(createInitialArb());
-  } else {
-    _showFileExistsMessage(localizationsFile);
-  }
-
   // create lib/l10n directory
   final arbDirPath = '$projectDirPath/lib/l10n';
   final arbDir = Directory(arbDirPath);
   if (!arbDir.existsSync()) {
     arbDir.createSync(recursive: true);
+  }
+
+  // create lib/l10n/app_localizations.dart
+  // with extension for easy access to l10n
+  final localizationsPath = '$projectDirPath/lib/l10n/l10n.dart';
+  final localizationsFile = File(localizationsPath);
+  if (!localizationsFile.existsSync()) {
+    localizationsFile.writeAsStringSync(createL10nDart());
+  } else {
+    _showFileExistsMessage(localizationsFile);
   }
 
   // create lib/l10n/app_en.arb
