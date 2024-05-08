@@ -8,7 +8,7 @@ import '../utils.dart';
 void createFlutterProject(List<String> args) {
   _runInShell(
     'flutter',
-    ['create', '-e', ...args],
+    ['create', '-e', '--no-pub', ...args],
   );
 }
 
