@@ -4,6 +4,7 @@ import 'package:code_builder/code_builder.dart';
 
 import '../commands/commands.dart' as cmd;
 import '../project/project_pubspec.dart';
+import '../templates/templates.dart';
 
 /// List of base packages that any project should have.
 const basePackages = [
@@ -73,55 +74,10 @@ void setupPackages(String workingDirPath) {
 }
 
 void _setupVeryGoodAnalysis(String workingDirPath) {
-  stdout.writeln('Setting up very_good_analysis...');
+  stdout.writeln('Setting up analysis_options...');
   final analysisOptionsPath = '$workingDirPath/analysis_options.yaml';
-  final analysisOptionsFile = File(analysisOptionsPath);
-  if (!analysisOptionsFile.existsSync()) {
-    analysisOptionsFile.createSync();
-  }
-  analysisOptionsFile.writeAsStringSync('''
-include: package:very_good_analysis/analysis_options.yaml
-
-linter:
-  rules:
-    always_use_package_imports: false
-    avoid_relative_lib_imports: false
-    prefer_relative_imports: true
-    public_member_api_docs: false
-  ''');
+  File(analysisOptionsPath).writeAsStringSync(createAnalysisOptions());
 }
-
-
-// done in lib/src/project/setup_project_structure.dart
-//
-// void _setupGoRouter(String workingDirPath) {
-//   final appRouterPath = '$workingDirPath/lib/app/app_router.dart';
-//   final appRouterFile = File(appRouterPath);
-//   if (!appRouterFile.existsSync()) {
-//     stdout.writeln('Setting up go_router...');
-//     appRouterFile.createSync(recursive: true);
-
-//     final appRouterDart = Library(
-//       (b) => b.body.addAll([
-//         Directive.import('package:go_router/go_router.dart'),
-//         Field(
-//           (b) => b
-//             ..name = 'appRouter'
-//             ..modifier = FieldModifier.final$
-//             ..assignment = const Code('GoRouter(routes: [])'),
-//         ),
-//       ]),
-//     );
-//     final dartEmitter = DartEmitter(
-//       orderDirectives: true,
-//       useNullSafetySyntax: true,
-//     );
-//     appRouterFile.writeAsStringSync('${appRouterDart.accept(dartEmitter)}');
-
-//   } else {
-//     // we don't want to overwrite the file if it already exists
-//   }
-// }
 
 void _setupLocalizations(String projectDirPath) {
   stdout.writeln('Setting up localizations...');
